@@ -22,8 +22,6 @@ const App = () => {
         return Promise.reject(new Error("Bad route"));
       }
 
-      return Promise.reject(new Error("Unknow error"));
-
     }).then(response => {
       setMovies(response.results);
     }).catch(error => {
@@ -44,7 +42,7 @@ const App = () => {
       <h2>Movies to watch</h2>
       <ul>
         {movies && movies.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
+          <li key={movie.id} onClick={moveToSeen(movie)}>{movie.title}</li>
         ))}
       </ul>
     </Fragment>

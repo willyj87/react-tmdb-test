@@ -22,8 +22,6 @@ const App = () => {
         return Promise.reject(new Error("Bad route"));
       }
 
-      return Promise.reject(new Error("Unknow error"));
-
     }).then(response => {
       setMovies(response.results);
     }).catch(error => {

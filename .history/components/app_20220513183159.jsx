@@ -6,8 +6,7 @@ const apiUrl = "https://api.themoviedb.org/3";
 const App = () => {
   const [error, setError] = useState("");
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
-  // Ajout de loader
+
   useEffect(() => {
     fetch(`${apiUrl}/movie/popular?api_key=${apiKey}`).then(response => {
       if (response.status === 200) {
@@ -22,8 +21,6 @@ const App = () => {
         return Promise.reject(new Error("Bad route"));
       }
 
-      return Promise.reject(new Error("Unknow error"));
-
     }).then(response => {
       setMovies(response.results);
     }).catch(error => {
@@ -32,19 +29,16 @@ const App = () => {
       } else {
         setError(String(error));
       }
-    }).finally(() => {
-      setIsLoading(false)
     });
   },[]);
 
   return (
     <Fragment>
-      {isLoading && <span>...is Loading</span>}
-      {error && <small>{error}</small>}      
-      <h2>Movies to watch</h2>
+    {error && <small>{error}</small>}      
+    <h2>Movies to watch</h2>
       <ul>
         {movies && movies.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
+          <li key={movie.id} onClick={moveToSeen(movie)}>{movie.title}</li>
         ))}
       </ul>
     </Fragment>
